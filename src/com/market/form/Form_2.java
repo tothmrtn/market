@@ -185,7 +185,8 @@ public class Form_2 extends javax.swing.JPanel {
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
         db.insertBill(txtSeller);
-        db.showProducts(itemTable);
+        DefaultTableModel model = (DefaultTableModel) billTable.getModel();
+        model.setRowCount(0);
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     
