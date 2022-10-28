@@ -7,7 +7,7 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 
 public class Form_1 extends javax.swing.JPanel {
     
-    DB db = new DB();
+    DB db = DB.getInstance();
 
     public Form_1() {
         initComponents();

@@ -5,7 +5,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Form_3 extends javax.swing.JPanel {
 
-    DB db = new DB();
+    DB db = DB.getInstance();
     
     public Form_3() {
         initComponents();    

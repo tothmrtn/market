@@ -9,7 +9,7 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 public class Login extends javax.swing.JFrame {
 
     public User user = new User();
-    public DB db = new DB();
+    public DB db = DB.getInstance();
         
     public Login() {
         initComponents();

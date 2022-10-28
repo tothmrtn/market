@@ -10,7 +10,7 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 public class Register extends javax.swing.JFrame {
     
     public User user;
-    public DB db = new DB();
+    public DB db = DB.getInstance();
 
     
     public Register() {
@@ -179,6 +179,11 @@ public class Register extends javax.swing.JFrame {
             }else if(!password.equals(confirm)) {
                 JOptionPane.showMessageDialog(this,
                         "Passwords are not the same!",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }else if(db.alreadyRegistered(email)) {
+                JOptionPane.showMessageDialog(this,
+                        "This email is already in use!",
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
             }else{
