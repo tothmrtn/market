@@ -24,6 +24,8 @@ public class DB {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
     
+    private static volatile DB INSTANCE = null;
+    
     Connection conn = null;
     Statement createStatement = null;
     PreparedStatement preparedStatement = null;
@@ -31,7 +33,7 @@ public class DB {
     
     net.proteanit.sql.DbUtils utils;
     
-    public DB() {
+    private DB() {
         try {
             Class.forName(DB_DRIVER);
             conn = DriverManager.getConnection(SERVER_URL, USERNAME, PASSWORD);
@@ -80,6 +82,20 @@ public class DB {
     }
     
     
+    public static DB getInstance() {
+        DB result = INSTANCE;
+        if(result == null) {
+            synchronized(DB.class) {
+                result = INSTANCE;
+                if(result == null) {
+                    INSTANCE = result = new DB();
+                }
+            }
+        }
+        return result;
+    }
+    
+    
     /* === Login / Register === */
     public void addUser(User user) {
         try{
@@ -91,11 +107,24 @@ public class DB {
         }catch(SQLException e) {
             e.printStackTrace();
             System.out.println("Something went wrong with the addUser method!");
-        }finally {
-            DbUtils.closeQuietly(rs);
-            DbUtils.closeQuietly(preparedStatement);
-            DbUtils.closeQuietly(conn);
         }
+    }
+    
+    
+    public boolean alreadyRegistered(String email) {
+        boolean registered = false;
+        try{
+            preparedStatement = conn.prepareStatement("SELECT * FROM registered WHERE email=?");
+            preparedStatement.setString(1, email);
+            rs = preparedStatement.executeQuery();           
+            if (rs.next()) {
+                registered = true;
+            }                          
+        }catch(SQLException e) {
+            e.printStackTrace();
+            System.out.println("Something went wrong with the alreadyRegistered method!");
+        }
+        return registered;
     }
     
     
@@ -116,10 +145,6 @@ public class DB {
         }catch(SQLException e) {
             e.printStackTrace();
             System.out.println("Something went wrong with the getUser method!");
-        }finally {
-            DbUtils.closeQuietly(rs);
-            DbUtils.closeQuietly(preparedStatement);
-            DbUtils.closeQuietly(conn);
         }
         return user;
     }
