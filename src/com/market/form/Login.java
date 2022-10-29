@@ -8,7 +8,7 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 
 public class Login extends javax.swing.JFrame {
 
-    public User user = new User();
+    public static User user;
     public DB db = DB.getInstance();
         
     public Login() {
@@ -157,7 +157,6 @@ public class Login extends javax.swing.JFrame {
             System.out.println("User login: " + user.getName());           
             dispose();
             Main main = new Main();        
-            main.user = new User(user.getName(), user.getEmail(), user.getPassword());
             main.setSellerName();
             main.setUserName();
             main.setVisible(true);           

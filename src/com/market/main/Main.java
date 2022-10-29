@@ -10,7 +10,6 @@ import java.awt.Component;
 
 public class Main extends javax.swing.JFrame {
     
-    public User user = new User();
     public Form_2 formTwo = new Form_2();
     
     public Main() {
@@ -55,11 +54,11 @@ public class Main extends javax.swing.JFrame {
     
     
     public void setUserName() {
-        this.menu1.getUserName().setText(user.getName());
+        this.menu1.getUserName().setText(Login.user.getName());
     }
     
     public void setSellerName() {
-        this.formTwo.getSeller().setText(user.getName());
+        this.formTwo.getSeller().setText(Login.user.getName());
     }
     
   
