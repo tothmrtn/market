@@ -1,7 +1,8 @@
 package com.market.form;
 
-import com.market.main.DB;
-import com.market.main.User;
+import com.market.dao.UserDAO;
+import com.market.dao.UserDAOImpl;
+import com.market.model.User;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -10,7 +11,7 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 public class Register extends javax.swing.JFrame {
     
     public User user;
-    public DB db = DB.getInstance();
+    UserDAO dao = new UserDAOImpl();
 
     
     public Register() {
@@ -181,14 +182,14 @@ public class Register extends javax.swing.JFrame {
                         "Passwords are not the same!",
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
-            }else if(db.alreadyRegistered(email)) {
+            }else if(dao.alreadyRegistered(email)) {
                 JOptionPane.showMessageDialog(this,
                         "This email is already in use!",
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
             }else{
                 user = new User(name, email, password);
-                db.addUser(user);
+                dao.addUser(user);
                 JOptionPane.showMessageDialog(this,
                         user.getName() + " has been added!");
                 dispose();

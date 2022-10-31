@@ -1,18 +1,19 @@
 package com.market.form;
 
-import com.market.main.DB;
+import com.market.controller.formController.Form_3Controller;
+import com.market.database.DB;
 import javax.swing.table.DefaultTableModel;
 
 public class Form_3 extends javax.swing.JPanel {
-
-    DB db = DB.getInstance();
+    
+    Form_3Controller controller = new Form_3Controller();
     
     public Form_3() {
         initComponents();    
         setOpaque(false);
         tableHistory.fixTable(jScrollPane1);
         DefaultTableModel mode = (DefaultTableModel)tableHistory.getModel();  
-        db.showBill(tableHistory);
+        controller.showBill(tableHistory);
     }
 
     @SuppressWarnings("unchecked")

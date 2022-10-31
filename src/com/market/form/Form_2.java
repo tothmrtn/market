@@ -1,13 +1,14 @@
 package com.market.form;
 
-import com.market.main.DB;
+import com.market.controller.formController.Form_2Controller;
+import com.market.database.DB;
 import com.market.swing.TextField;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 public class Form_2 extends javax.swing.JPanel {
-
-    DB db = DB.getInstance();
+    
+    Form_2Controller controller = new Form_2Controller();
     
     public Form_2() {
         initComponents();
@@ -15,7 +16,7 @@ public class Form_2 extends javax.swing.JPanel {
         initButton();
         placeHolder();
         fields();
-        db.showProducts(itemTable);
+        controller.showProducts(itemTable);
         itemTable.fixTable(jScrollPane1);
         billTable.fixTable(jScrollPane2);
         DefaultTableModel mode1 = (DefaultTableModel)itemTable.getModel();
@@ -183,20 +184,21 @@ public class Form_2 extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-        db.insertBill(txtSeller);
+        controller.insertBill(txtSeller);
         DefaultTableModel model = (DefaultTableModel) billTable.getModel();
         model.setRowCount(0);
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        db.addSelling(txtName, txtQuantity, txtPrice, labelTotal, billTable);
+        controller.addSelling(txtName, txtQuantity, txtPrice, labelTotal, billTable);
     }//GEN-LAST:event_btnAddActionPerformed
 
     
     private void itemTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemTableMouseClicked
-        db.rowClicked(itemTable, txtName, txtPrice);        
+        controller.rowClicked(itemTable, txtName, txtPrice);        
     }//GEN-LAST:event_itemTableMouseClicked
 
     public TextField getSeller() {

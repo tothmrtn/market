@@ -1,15 +1,16 @@
 package com.market.form;
 
-import com.market.main.DB;
+import com.market.dao.UserDAO;
+import com.market.dao.UserDAOImpl;
 import com.market.main.Main;
-import com.market.main.User;
+import com.market.model.User;
 import javax.swing.JOptionPane;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 public class Login extends javax.swing.JFrame {
 
     public static User user;
-    public DB db = DB.getInstance();
+    UserDAO dao = new UserDAOImpl();
         
     public Login() {
         initComponents();
@@ -151,7 +152,7 @@ public class Login extends javax.swing.JFrame {
         String name = txtName.getText();
         String password = String.valueOf(txtPassword.getPassword());
         
-        user = db.getUser(name, password);
+        user = dao.getUser(name, password);
         
         if(user != null) {
             System.out.println("User login: " + user.getName());           
@@ -160,7 +161,7 @@ public class Login extends javax.swing.JFrame {
             main.setSellerName();
             main.setUserName();
             main.setVisible(true);           
-        }else{
+        }else {
                 JOptionPane.showMessageDialog(Login.this,
                         "Email or Password is invalid",
                         "Try again",

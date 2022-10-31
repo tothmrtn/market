@@ -1,13 +1,14 @@
 package com.market.form;
 
-import com.market.main.DB;
+import com.market.controller.formController.Form_1Controller;
+import com.market.database.DB;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 public class Form_1 extends javax.swing.JPanel {
     
-    DB db = DB.getInstance();
+    Form_1Controller controller = new Form_1Controller();
 
     public Form_1() {
         initComponents();
@@ -16,7 +17,7 @@ public class Form_1 extends javax.swing.JPanel {
         DefaultTableModel mode = (DefaultTableModel)productList.getModel();
         initButton();  
         placeholder();
-        db.showProducts(productList); 
+        controller.showProducts(productList); 
     }
     
     
@@ -177,35 +178,35 @@ public class Form_1 extends javax.swing.JPanel {
 
     
     private void filterListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterListItemStateChanged
-        db.filterProducts(filterList, productList);
+        controller.filterProducts(filterList, productList);
     }//GEN-LAST:event_filterListItemStateChanged
 
     
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        db.addProduct(txtName, txtPrice, categoryList);
-        db.showProducts(productList);
+        controller.addProduct(txtName, txtPrice, categoryList);
+        controller.showProducts(productList);
     }//GEN-LAST:event_btnAddActionPerformed
 
     
     private void productListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productListMouseClicked
-        db.productClicked(productList, txtName, txtPrice);     
+        controller.productClicked(productList, txtName, txtPrice);     
     }//GEN-LAST:event_productListMouseClicked
 
     
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        db.editProduct(txtName, txtPrice, categoryList);
-        db.showProducts(productList);
+        controller.editProduct(txtName, txtPrice, categoryList);
+        controller.showProducts(productList);
     }//GEN-LAST:event_btnEditActionPerformed
 
     
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        db.deleteProduct(txtName, txtPrice, categoryList);
-        db.showProducts(productList);
+        controller.deleteProduct(txtName, txtPrice, categoryList);
+        controller.showProducts(productList);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        db.showProducts(productList);
+        controller.showProducts(productList);
     }//GEN-LAST:event_btnRefreshActionPerformed
 
 
